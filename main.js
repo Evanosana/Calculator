@@ -15,23 +15,26 @@ const divisionButton = document.getElementById("division")
 const multiplicationButton = document.getElementById("multiplication")
 const subtractionButton = document.getElementById("subtraction")
 const additionButton = document.getElementById("plus")
-
+let decimalCheck = 0
+console.log(decimalCheck)
 
 let visual = document.getElementById("answer")
 
 function clearFieldZero(){
     visual.innerText = "0"
+    decimalCheck = 0
 }
 function clearFieldAll(){
     visual.innerText = ""
 }
 function operatorCheck(char){
-    return char === "÷" || char === "x" || char === "-" || char === "+" 
+    return char === "÷" || char === "x" || char === "-" || char === "+" || char === "."
 }
 
 clearButton.addEventListener("click", () => {
     clearFieldZero()
 })
+
 divisionButton.addEventListener("click", () => {
     if(visual.innerText === "0"){
         return
@@ -40,7 +43,9 @@ divisionButton.addEventListener("click", () => {
         return
     }
     visual.innerText += "÷"
+    decimalCheck = 0
 })
+
 multiplicationButton.addEventListener("click", () => {
     if(visual.innerText === "0"){
         return
@@ -49,7 +54,9 @@ multiplicationButton.addEventListener("click", () => {
         return
     }
     visual.innerText += "x"
+    decimalCheck = 0
 })
+
 subtractionButton.addEventListener("click", () => {
     if(visual.innerText === "0"){
         return
@@ -58,7 +65,9 @@ subtractionButton.addEventListener("click", () => {
         return
     }
     visual.innerText += "-"
+    decimalCheck = 0
 })
+
 additionButton.addEventListener("click", () => {
     if(visual.innerText === "0"){
         return
@@ -67,7 +76,23 @@ additionButton.addEventListener("click", () => {
         return
     }
     visual.innerText += "+"
+    decimalCheck = 0
 })
+
+
+
+
+
+decimalButton.addEventListener("click", () => {
+    if(operatorCheck(visual.innerText.slice(-1)) || decimalCheck === 1){
+        return
+    }
+    visual.innerText += "."
+    decimalCheck = 1
+    console.log(decimalCheck)
+})
+
+
 
 
 
@@ -130,4 +155,17 @@ zeroButton.addEventListener("click", () => {
         return
     }
     visual.innerText += "0"
+})
+
+
+
+const yessir = document.getElementById("yessir")
+
+yessir.addEventListener("click", () => {
+    console.log("visualLength = " + visual.innerText.length)
+    if(decimalCheck === 0){
+        console.log("Decimals: none")
+        return
+    }
+    console.log("Decimals: yes")
 })
